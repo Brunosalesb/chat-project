@@ -1,0 +1,47 @@
+@options
+@packages
+@argfile
+-encoding
+'UTF-8'
+-protected
+-source
+'18'
+-sourcepath
+'C:/Users/bruno/OneDrive/Documentos/NetBeansProjects/Projeto-chat/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2022. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/bruno/OneDrive/Documentos/NetBeansProjects/Projeto-chat/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Projeto-chat 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'Projeto-chat 1.0-SNAPSHOT API'
+com.mycompany.projeto.chat
+'C:/Users/bruno/OneDrive/Documentos/NetBeansProjects/Projeto-chat/src/main/java/com/mycompany/projeto/chat/Client.java'
+'C:/Users/bruno/OneDrive/Documentos/NetBeansProjects/Projeto-chat/src/main/java/com/mycompany/projeto/chat/ClientHandler.java'
+'C:/Users/bruno/OneDrive/Documentos/NetBeansProjects/Projeto-chat/src/main/java/com/mycompany/projeto/chat/Server.java'
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\src\main\java = 1654225475319
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\allclasses-index.html = 1654297692469
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\allpackages-index.html = 1654297692473
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\copy.svg = 1654297692508
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\element-list = 1654297692416
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\help-doc.html = 1654297692502
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\index-all.html = 1654297692496
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\index.html = 1654297692498
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\jquery-ui.overrides.css = 1654297692540
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\member-search-index.js = 1654297692483
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\module-search-index.js = 1654297692474
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\overview-tree.html = 1654297692457
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\package-search-index.js = 1654297692480
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\script.js = 1654297692507
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\search.js = 1654297692510
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\stylesheet.css = 1654297692505
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\tag-search-index.js = 1654297692484
+C:\Users\bruno\OneDrive\Documentos\NetBeansProjects\Projeto-chat\target\site\apidocs\type-search-index.js = 1654297692482
