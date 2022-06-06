@@ -25,6 +25,7 @@ public class ClientHandler implements Runnable {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private String clientUsername;
+    private String clientGroup = "";
 
     // Creating the client handler from the socket the server passes.
     public ClientHandler(Socket socket) {
@@ -58,18 +59,51 @@ public class ClientHandler implements Runnable {
                 String comando = messageFromClient.split(" ")[1];
                 
                 if(comando.trim().equalsIgnoreCase("/ajuda")){
-                    messageFromClient = ObterComandosDeAjuda();
-                    personalBroadcastMessage(messageFromClient);
+                    messageFromClient = getHelpCommands();
+                    broadcastPersonalMessage(messageFromClient);
                 }
                 else if(comando.trim().equalsIgnoreCase("/listarUsuarios")){
-                    messageFromClient = ObterUsuarios();
-                    personalBroadcastMessage(messageFromClient);
+                    messageFromClient = getUsers();
+                    broadcastPersonalMessage(messageFromClient);
                 }
                 else if(comando.trim().equalsIgnoreCase("/mensagemPrivada")){
                     String usuario = messageFromClient.split(" ")[2];
                     messageFromClient = messageFromClient.replace(comando, "");
                     messageFromClient = messageFromClient.replace(usuario, "");
-                    privateBroadcastMessage(messageFromClient, usuario);
+                    broadcastPrivateMessage(messageFromClient.trim(), usuario);
+                }
+                
+                else if(comando.trim().equalsIgnoreCase("/mensagemGrupo")){
+                    if(!this.clientGroup.equals("")){
+                        messageFromClient = messageFromClient.replace(comando, "");
+                        messageFromClient = messageFromClient.replace(this.clientGroup, "");
+                        broadcastGroupMessage(messageFromClient.trim(), this.clientGroup);
+                    }
+                    else
+                        broadcastPersonalMessage("SERVER: Nao foi possivel enviar a mensagem pois voce ainda nao esta em nenhum grupo");
+                }
+                
+                else if(comando.trim().equalsIgnoreCase("/entrarGrupo")){
+                    String grupo = messageFromClient.split(" ")[2];
+                    if(this.clientGroup.equals("")){
+                        this.clientGroup = grupo;
+                        messageFromClient = "SERVER: Voce entrou no grupo " + grupo;
+                        broadcastPersonalMessage(messageFromClient);
+                    }
+                    else
+                        broadcastPersonalMessage("SERVER: Nao foi possivel entrar no grupo " + grupo + ", pois voce ja esta no grupo " + this.clientGroup);
+                }
+                
+                else if(comando.trim().equalsIgnoreCase("/sairGrupo")){
+                    if(!this.clientGroup.equals("")){
+                        String grupo = this.clientGroup;
+                        this.clientGroup = "";
+                        messageFromClient = "SERVER: Voce saiu do grupo " + grupo;
+                        broadcastPersonalMessage(messageFromClient);
+                    }
+                    else
+                        broadcastPersonalMessage("SERVER: Nao foi possivel sair do grupo pois voce ainda nao esta em nenhum grupo");
+                    
                 }
                 else
                     broadcastMessage(messageFromClient);
@@ -101,7 +135,7 @@ public class ClientHandler implements Runnable {
         }
     }
     
-    public void personalBroadcastMessage(String messageToSend) {
+    public void broadcastPersonalMessage(String messageToSend) {
         for (ClientHandler clientHandler : clientHandlers) {
             try {
                 // You don't want to broadcast the message to the user who sent it.
@@ -117,11 +151,27 @@ public class ClientHandler implements Runnable {
         }
     }
     
-    public void privateBroadcastMessage(String messageToSend, String usuario) {
+    public void broadcastPrivateMessage(String messageToSend, String usuario) {
         for (ClientHandler clientHandler : clientHandlers) {
             try {
                 // You don't want to broadcast the message to the user who sent it.
                 if (clientHandler.clientUsername.equals(usuario)) {
+                    clientHandler.bufferedWriter.write(messageToSend);
+                    clientHandler.bufferedWriter.newLine();
+                    clientHandler.bufferedWriter.flush();
+                }
+            } catch (IOException e) {
+                // Gracefully close everything.
+                closeEverything(socket, bufferedReader, bufferedWriter);
+            }
+        }
+    }
+    
+    public void broadcastGroupMessage(String messageToSend, String group) {
+        for (ClientHandler clientHandler : clientHandlers) {
+            try {
+                // You don't want to broadcast the message to the user who sent it.
+                if (clientHandler.clientGroup.equals(group) && !clientHandler.clientUsername.equals(clientUsername)) {
                     clientHandler.bufferedWriter.write(messageToSend);
                     clientHandler.bufferedWriter.newLine();
                     clientHandler.bufferedWriter.flush();
@@ -165,15 +215,18 @@ public class ClientHandler implements Runnable {
         }
     }
     
-    public String ObterUsuarios(){
-        var resultado = String.join(", ", users);
-        return "Usuarios do chat: " + resultado;
+    public String getUsers(){
+        var result = String.join(", ", users);
+        return "SERVER: Usuarios do chat: " + result;
     }
     
-    public String ObterComandosDeAjuda(){
-        var comandos = "Comandos disponiveis: \n"
+    public String getHelpCommands(){
+        var comandos = "SERVER: Comandos disponiveis: \n"
                 + "/listarUsuarios = lista todos os usuarios do chat. \n"
-                + "/mensagemPrivada + {usuario} = envia mensagem privada para determinado usuario";
+                + "/mensagemPrivada + {usuario} = envia mensagem privada para determinado usuario. \n"
+                + "/entrarGrupo + {nomeGrupo} = entra em determinado grupo. \n"
+                + "/mensagemGrupo = envia mensagem para membros do grupo que voce faz parte. \n"
+                + "/sairGrupo = sai do seu grupo atual.";
         return comandos;
     }
 }

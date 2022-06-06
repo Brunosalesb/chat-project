@@ -44,16 +44,9 @@ public class Client {
             // While there is still a connection with the server, continue to scan the terminal and then send the message.
             while (socket.isConnected()) {
                 String messageToSend = scanner.nextLine();
-                
-                switch (messageToSend) {
-                    //case "/teste":
-                        //System.out.println("Bruno, Murilo, Isa");
-                        //break;
-                    default:
-                        bufferedWriter.write(username + ": " + messageToSend);
-                        bufferedWriter.newLine();
-                        bufferedWriter.flush();
-                }
+                bufferedWriter.write(username + ": " + messageToSend);
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
             }
         } catch (IOException e) {
             // Gracefully close everything.
@@ -112,6 +105,7 @@ public class Client {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Insira seu nome para entrar no chat: ");
         String username = scanner.nextLine();
+            
         // Create a socket to connect to the server.
         Socket socket = new Socket("localhost", 1234);
 
